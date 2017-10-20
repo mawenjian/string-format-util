@@ -95,19 +95,19 @@ public void testPrepare() {
     paramMap = new HashMap&lt;String, Object&gt;();
     paramMap.put("name", "世界");
     
-    Map&lt;String, Object&gt; subParam = new HashMap<String, Object>();
+    Map&lt;String, Object&gt; subParam = new HashMap&lt;String, Object&gt;();
     subParam.put("name", "中国");
     paramMap.put("china", subParam);
     
-    Map&lt;String, Object&gt; subParam2 = new HashMap<String, Object>();
+    Map&lt;String, Object&gt; subParam2 = new HashMap&lt;String, Object&gt;();
     subParam2.put("name", "美国");
     paramMap.put("usa", subParam2);
     
-    Map&lt;String, Object&gt; subSubParam = new HashMap<String, Object>();
+    Map&lt;String, Object&gt; subSubParam = new HashMap&lt;String, Object&gt;();
     subSubParam.put("name", "北京");
     subParam.put("beijing", subSubParam);
     
-    Map&lt;String, Object&gt; subSubSubParam = new HashMap<String, Object>();
+    Map&lt;String, Object&gt; subSubSubParam = new HashMap&lt;String, Object&gt;();
     subSubSubParam.put("name", "西城");
     subSubParam.put("xicheng", subSubSubParam);
 
