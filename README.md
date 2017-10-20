@@ -8,7 +8,92 @@
 ## 程序演示
 
 ----------------------------------------
-### 1. 数据准备
+
+### 1. 参数是Map&lt;String, Object&gt;类型的简单用法
+
+<pre><code>
+@Test
+public void testFormatString1() {
+    String result = StringFormatUtil.format(formatForMap, paramMap);
+    System.out.print("TEST-101 => ");
+    System.out.println(result);
+}
+</code></pre>
+
+### 2. 参数是类对象的简单用法
+
+<pre><code>
+@Test
+public void testFormatString2() {
+    String result = StringFormatUtil.format(formatForBean, paramBean);
+    System.out.print("TEST-201 => ");
+    System.out.println(result);
+}
+</code></pre>
+
+### 3. `StringFormatUtil`自带的几种数据后处理方式
+
+<pre><code>
+@Test
+public void testFormatString3() {
+    // NULL值不做替换
+    String result = StringFormatUtil.format(formatForBean, paramBean, PostHandleType.NULL_IGNOREANCE);
+    System.out.print("TEST-301 => ");
+    System.out.println(result);
+
+    // NULL值替换为空字符串
+    result = StringFormatUtil.format(formatForBean, paramBean, PostHandleType.NULL_AS_EMPTY);
+    System.out.print("TEST-302 => ");
+    System.out.println(result);
+
+    // NULL值替换为字符串“NULL”
+    result = StringFormatUtil.format(formatForBean, paramBean, PostHandleType.NULL_AS_STRING);
+    System.out.print("TEST-303 => ");
+    System.out.println(result);
+}
+</code></pre>
+
+### 4. 自定义数据后处理接口，按你需要的格式输出
+
+<pre><code>
+@Test
+public void testFormatString4() {
+
+    // 放在匿名类外是为了演示需要向匿名类传值的使用场景
+    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    // 自定义处理类
+    StringFormatUtil.PostHandleIface postHandler = new PostHandleIface() {
+
+        // private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        @Override
+        public String handle(Object containerObject, String name, String fullVariableName, Object value) {
+            /**
+             * 注意： 1）各个逻辑的处理顺序，否则很容易出错； 2）value==null时调用toString()方法会抛空指针错误
+             */
+            String returnString = null;
+            if ("region2".equals(name)) {
+                returnString = String.format("region2: %s", value);
+            } else if ("date".equals(name) && "date".equals(fullVariableName) && value != null
+                    && value instanceof Date) {
+                returnString = sdf.format(value);
+            } else if (value == null) {
+                returnString = null;
+            } else {
+                returnString = value.toString();
+            }
+            return returnString;
+        }
+
+    };
+    String result = StringFormatUtil.format(formatForBean, paramBean, postHandler);
+    System.out.print("TEST-401 => ");
+    System.out.println(result);
+}
+</code></pre>
+
+### 5. 数据准备
 
 <pre><code>
 // Map类型使用的格式化字符串
@@ -56,90 +141,6 @@ public void testPrepare() {
     subSubBean.setRegion1("北京");
     subSubBean.setRegion2("河北");
     subBean.setChild(subSubBean);
-}
-</code></pre>
-
-### 2. 参数是Map&lt;String, Object&gt;类型的简单用法
-
-<pre><code>
-@Test
-public void testFormatString1() {
-    String result = StringFormatUtil.format(formatForMap, paramMap);
-    System.out.print("TEST-101 => ");
-    System.out.println(result);
-}
-</code></pre>
-
-### 3. 参数是类对象的简单用法
-
-<pre><code>
-@Test
-public void testFormatString2() {
-    String result = StringFormatUtil.format(formatForBean, paramBean);
-    System.out.print("TEST-201 => ");
-    System.out.println(result);
-}
-</code></pre>
-
-### 4. `StringFormatUtil`自带的几种数据后处理方式
-
-<pre><code>
-@Test
-public void testFormatString3() {
-    // NULL值不做替换
-    String result = StringFormatUtil.format(formatForBean, paramBean, PostHandleType.NULL_IGNOREANCE);
-    System.out.print("TEST-301 => ");
-    System.out.println(result);
-
-    // NULL值替换为空字符串
-    result = StringFormatUtil.format(formatForBean, paramBean, PostHandleType.NULL_AS_EMPTY);
-    System.out.print("TEST-302 => ");
-    System.out.println(result);
-
-    // NULL值替换为字符串“NULL”
-    result = StringFormatUtil.format(formatForBean, paramBean, PostHandleType.NULL_AS_STRING);
-    System.out.print("TEST-303 => ");
-    System.out.println(result);
-}
-</code></pre>
-
-### 5. 自定义数据后处理接口，按你需要的格式输出
-
-<pre><code>
-@Test
-public void testFormatString4() {
-
-    // 放在匿名类外是为了演示需要向匿名类传值的使用场景
-    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-    // 自定义处理类
-    StringFormatUtil.PostHandleIface postHandler = new PostHandleIface() {
-
-        // private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        @Override
-        public String handle(Object containerObject, String name, String fullVariableName, Object value) {
-            /**
-             * 注意： 1）各个逻辑的处理顺序，否则很容易出错； 2）value==null时调用toString()方法会抛空指针错误
-             */
-            String returnString = null;
-            if ("region2".equals(name)) {
-                returnString = String.format("region2: %s", value);
-            } else if ("date".equals(name) && "date".equals(fullVariableName) && value != null
-                    && value instanceof Date) {
-                returnString = sdf.format(value);
-            } else if (value == null) {
-                returnString = null;
-            } else {
-                returnString = value.toString();
-            }
-            return returnString;
-        }
-
-    };
-    String result = StringFormatUtil.format(formatForBean, paramBean, postHandler);
-    System.out.print("TEST-401 => ");
-    System.out.println(result);
 }
 </code></pre>
 
