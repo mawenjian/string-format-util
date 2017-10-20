@@ -5,10 +5,10 @@
 
 `StringFormatUtil` is a powerful Java-based string / placeholder replacement tool.
 
-##程序演示
+## 程序演示
 
 ----------------------------------------
-###1. 数据准备
+### 1. 数据准备
 
 <pre><code>
 // Map类型使用的格式化字符串
@@ -59,7 +59,7 @@ public void testPrepare() {
 }
 </code></pre>
 
-###2. 参数是Map&lt;String, Object&gt;类型的简单用法
+### 2. 参数是Map&lt;String, Object&gt;类型的简单用法
 
 <pre><code>
 @Test
@@ -70,7 +70,7 @@ public void testFormatString1() {
 }
 </code></pre>
 
-###3. 参数是类对象的简单用法
+### 3. 参数是类对象的简单用法
 
 <pre><code>
 @Test
@@ -81,7 +81,7 @@ public void testFormatString2() {
 }
 </code></pre>
 
-###4. `StringFormatUtil`自带的几种数据后处理方式
+### 4. `StringFormatUtil`自带的几种数据后处理方式
 
 <pre><code>
 @Test
@@ -103,7 +103,7 @@ public void testFormatString3() {
 }
 </code></pre>
 
-###5. 自定义数据后处理接口，按你需要的格式输出
+### 5. 自定义数据后处理接口，按你需要的格式输出
 
 <pre><code>
 @Test
@@ -143,7 +143,7 @@ public void testFormatString4() {
 }
 </code></pre>
 
-###6. 例子中用到的StringFormatTestBean类
+### 6. 例子中用到的StringFormatTestBean类
 
 <pre><code>
  public class StringFormatTestBean {
@@ -186,7 +186,7 @@ public void testFormatString4() {
 }
 </code></pre>
 
-##联系方式
+## 联系方式
 
 ----------------------------------------
 * 邮箱：mawenjian#gmail.com
