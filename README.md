@@ -9,56 +9,122 @@
 
 ----------------------------------------
 
-### 1. 参数是Map&lt;String, Object&gt;类型的简单用法
+### 1. `StringFormatUtil`函数定义
+
+<pre><code>
+public class StringFormatUtil {
+    /**
+     * 格式化字符串 字符串中使用{key}表示占位符
+     * @param format 格式化字符串
+     * @param param 对象或Map&lt;String, Object&gt;类型的集合
+     * @return
+     */
+    public static String format(String format, Object param);
+    
+    /**
+     * 格式化字符串 字符串中使用{key}表示占位符
+     * @param format 格式化字符串
+     * @param param 对象或Map&lt;String, Object&gt;类型的集合
+     * @param postHandleType 数据后处理类型枚举，为NULL则将占位符变量中的所有NULL值替换为空字符串
+     * @return
+     */
+    public static String format(String format, Object param, PostHandleType postHandleType);
+    
+    /**
+     * 格式化字符串 字符串中使用{key}表示占位符
+     * 
+     * @param format
+     *            格式化字符串
+     * @param param
+     *            对象或Map&lt;String, Object&gt;类型的集合
+     * @param postHandler
+     *            数据后处理接口，为NULL则将占位符变量中的所有NULL值替换为空字符串
+     * @return
+     */
+    public static String format(String format, Object param, PostHandleIface postHandler);
+}
+</code></pre>
+
+### 2. 传入参数`param`是`Map<String, Object>`类型的简单用法
 
 <pre><code>
 @Test
 public void testFormatString1() {
-    String result = StringFormatUtil.format(formatForMap, paramMap);
-    System.out.print("TEST-101 => ");
+
+    /* 
+     * formatForMap和paramMap的定义详见“数据准备”部分
+     *
+     * String formatForMap;
+     * Map&lt;String, Object&gt; paramMap;
+     *
+     */
+     
+    String result = StringFormatUtil.format(formatForMap, paramMap);
     System.out.println(result);
 }
 </code></pre>
 
-### 2. 参数是类对象的简单用法
+### 3. 传入参数`param`是类对象类型的简单用法
 
 <pre><code>
 @Test
 public void testFormatString2() {
+
+    /* 
+     * formatForBean和paramBean的定义详见“数据准备部分”
+     *
+     * String formatForBean;
+     * Map&lt;String, Object&gt; paramBean;
+     *
+     */
+     
     String result = StringFormatUtil.format(formatForBean, paramBean);
-    System.out.print("TEST-201 => ");
     System.out.println(result);
 }
 </code></pre>
 
-### 3. `StringFormatUtil`自带的几种数据后处理方式
+### 4. `StringFormatUtil`自带的几种数据处理方式
 
 <pre><code>
 @Test
 public void testFormatString3() {
+
+    /* 
+    * formatForBean和paramBean的定义详见“数据准备部分”
+    *
+    * String formatForBean;
+    * Map&lt;String, Object&gt; paramBean;
+    *
+    */
+    
     // NULL值不做替换
     String result = StringFormatUtil.format(formatForBean, paramBean, PostHandleType.NULL_IGNOREANCE);
-    System.out.print("TEST-301 => ");
     System.out.println(result);
 
     // NULL值替换为空字符串
     result = StringFormatUtil.format(formatForBean, paramBean, PostHandleType.NULL_AS_EMPTY);
-    System.out.print("TEST-302 => ");
     System.out.println(result);
 
     // NULL值替换为字符串“NULL”
     result = StringFormatUtil.format(formatForBean, paramBean, PostHandleType.NULL_AS_STRING);
-    System.out.print("TEST-303 => ");
     System.out.println(result);
 }
 </code></pre>
 
-### 4. 自定义数据后处理接口，按你需要的格式输出
+### 5. 自定义数据处理接口，按你需要的格式输出
 
 <pre><code>
 @Test
 public void testFormatString4() {
 
+    /* 
+     * formatForBean和paramBean的定义详见“数据准备部分”
+     *
+     * String formatForBean;
+     * Map&lt;String, Object&gt; paramBean;
+     *
+     */
+     
     // 放在匿名类外是为了演示需要向匿名类传值的使用场景
     final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -88,41 +154,40 @@ public void testFormatString4() {
 
     };
     String result = StringFormatUtil.format(formatForBean, paramBean, postHandler);
-    System.out.print("TEST-401 => ");
     System.out.println(result);
 }
 </code></pre>
 
-### 5. 数据准备
+### 6. 数据准备
 
 <pre><code>
-// Map类型使用的格式化字符串
+// Map&lt;String, Object&gt;类型使用的格式化字符串
 private final static String formatForMap = "{name}, {china.name}, {usa.name}, {china.beijing.name}, {china.beijing.xicheng.name}.";;
 // 类对象使用的格式化字符串
 private final static String formatForBean = "{region1}, {region2}, {child.region1}, {child.region2}, {child.child.region1}, {child.child.region2}, {date}, {child.date}.";
 
-private Map<String, Object> paramMap = null;
+private Map&lt;String, Object&gt; paramMap = null;
 private StringFormatTestBean paramBean = null;
 
 @Before
 public void testPrepare() {
     // paramMap初始化
-    paramMap = new HashMap<String, Object>();
+    paramMap = new HashMap&lt;String, Object&gt;();
     paramMap.put("name", "世界");
     
-    Map<String, Object> subParam = new HashMap<String, Object>();
+    Map&lt;String, Object&gt; subParam = new HashMap<String, Object>();
     subParam.put("name", "中国");
     paramMap.put("china", subParam);
     
-    Map<String, Object> subParam2 = new HashMap<String, Object>();
+    Map&lt;String, Object&gt; subParam2 = new HashMap<String, Object>();
     subParam2.put("name", "美国");
     paramMap.put("usa", subParam2);
     
-    Map<String, Object> subSubParam = new HashMap<String, Object>();
+    Map&lt;String, Object&gt; subSubParam = new HashMap<String, Object>();
     subSubParam.put("name", "北京");
     subParam.put("beijing", subSubParam);
     
-    Map<String, Object> subSubSubParam = new HashMap<String, Object>();
+    Map&lt;String, Object&gt; subSubSubParam = new HashMap<String, Object>();
     subSubSubParam.put("name", "西城");
     subSubParam.put("xicheng", subSubSubParam);
 
@@ -144,7 +209,7 @@ public void testPrepare() {
 }
 </code></pre>
 
-### 6. 例子中用到的StringFormatTestBean类
+### 7. 例子中用到的StringFormatTestBean类
 
 <pre><code>
  public class StringFormatTestBean {
