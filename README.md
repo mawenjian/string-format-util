@@ -5,11 +5,39 @@
 
 `StringFormatUtil` is a powerful Java-based string / placeholder replacement tool.
 
-## 程序演示
+## 简介
+
+----------------------------------------
+### 其它类似替换工具的不足
+
+尽管网络上很早就有类似的字符串/占位符替换工具，但是它们只能实现类似`{replacement}`形式的单层字符串/占位符替换，在使用过程中具有很大的局限性，不能满足我们的业务需要。这也是我造这个轮子的直接原因。
+
+### `StringFormatUtil`的优势
+
+* 便捷性更高。不同于网络上的这些工具类，`StringFormatUtil`基于Java的反射技术，实现了字符串/占位符的多层次替换，可以实现诸如`{china.beijing.haidian}`形式的替换，使用上更加方便。
+
+* 可定制性更强。如果我们提供的几种默认方式不能满足开发需要，开发者可以通过实现类中的`PostHandleIface`接口，实现对输出数据格式的个性化定制（例如：日期的格式化显示，小数精确位数的控制，等等）。
+
+* 算法进行了优化。在算法实现上，我们也进行了很多的优化，从而可以保证较好的执行效率（当然，与单层替换相比，效率难免还是要低一些的，所以如果程序对时间非常敏感、而且需求简单的话，也可以考虑单层替换方案；不过一般需求根本不用考虑这么多，我们的程序在效率上完全没问题，尽管放心用）。
+
+## Introduction
+
+----------------------------------------
+### Shortcomings of other similar tools
+
+Although there are similar string / placeholder replacement tools on the Internet, they can only be implemented with a single-layer string/placeholder replacement like `{replacement}`, with great limitations in actual use , can not meet our business needs. It is also the direct cause of my development of this tool. 
+
+### Advantage of `StringFormatUtil`
+
+* More convenient. Different from the tools on the Internet, `StringFormatUtil` based on Java's reflection, achieves a string/placeholder multi-level replacement. So you can achieve such as `{china.beijing.haidian}` form of replacement, with more Convenience in actual use.
+
+* More customizable. If the several methods we provide can not meet your development needs, your can achieve the customization of output data formatting(eg: the date of the format display, decimal precision bit control, etc.) by an implementation of `PostHandleIface` interface.
+
+* Optimized algorithm.In the implementation of the algorithm, we also carried out a lot of optimization, which can ensure better execution efficiency (Of course, compared with single-layer replacement, efficiency is still inevitable. So if your program is extrame sensitive to time with simple demand , You can also consider a single-layer replacement program. However, the general do not need to consider so much, since our program is completely okey in efficiency, despite the rest assured).
 
 ----------------------------------------
 
-### 1. `StringFormatUtil`函数定义
+## 公共函数定义
 
 <pre><code>
 public class StringFormatUtil {
@@ -42,6 +70,62 @@ public class StringFormatUtil {
      * @return
      */
     public static String format(String format, Object param, PostHandleIface postHandler);
+}
+</code></pre>
+
+----------------------------------------
+## 使用演示
+
+----------------------------------------
+
+### 1. 数据准备
+
+<pre><code>
+// Map&lt;String, Object&gt;类型使用的格式化字符串
+private final static String formatForMap = "{name}, {china.name}, {usa.name}, {china.beijing.name}, {china.beijing.xicheng.name}.";;
+// 类对象使用的格式化字符串
+private final static String formatForBean = "{region1}, {region2}, {child.region1}, {child.region2}, {child.child.region1}, {child.child.region2}, {date}, {child.date}.";
+
+private Map&lt;String, Object&gt; paramMap = null;
+private StringFormatTestBean paramBean = null;
+
+@Before
+public void testPrepare() {
+    // paramMap初始化
+    paramMap = new HashMap&lt;String, Object&gt;();
+    paramMap.put("name", "世界");
+    
+    Map&lt;String, Object&gt; subParam = new HashMap<String, Object>();
+    subParam.put("name", "中国");
+    paramMap.put("china", subParam);
+    
+    Map&lt;String, Object&gt; subParam2 = new HashMap<String, Object>();
+    subParam2.put("name", "美国");
+    paramMap.put("usa", subParam2);
+    
+    Map&lt;String, Object&gt; subSubParam = new HashMap<String, Object>();
+    subSubParam.put("name", "北京");
+    subParam.put("beijing", subSubParam);
+    
+    Map&lt;String, Object&gt; subSubSubParam = new HashMap<String, Object>();
+    subSubSubParam.put("name", "西城");
+    subSubParam.put("xicheng", subSubSubParam);
+
+
+    // paramBean初始化
+    paramBean = new StringFormatTestBean();
+    paramBean.setRegion1("世界");
+    paramBean.setRegion2(null);
+    
+    StringFormatTestBean subBean = new StringFormatTestBean();
+    subBean.setRegion1("中国");
+    subBean.setRegion2("美国");
+    paramBean.setChild(subBean);
+    
+    StringFormatTestBean subSubBean = new StringFormatTestBean();
+    subSubBean.setRegion1("北京");
+    subSubBean.setRegion2("河北");
+    subBean.setChild(subSubBean);
 }
 </code></pre>
 
@@ -158,58 +242,7 @@ public void testFormatString4() {
 }
 </code></pre>
 
-### 6. 数据准备
-
-<pre><code>
-// Map&lt;String, Object&gt;类型使用的格式化字符串
-private final static String formatForMap = "{name}, {china.name}, {usa.name}, {china.beijing.name}, {china.beijing.xicheng.name}.";;
-// 类对象使用的格式化字符串
-private final static String formatForBean = "{region1}, {region2}, {child.region1}, {child.region2}, {child.child.region1}, {child.child.region2}, {date}, {child.date}.";
-
-private Map&lt;String, Object&gt; paramMap = null;
-private StringFormatTestBean paramBean = null;
-
-@Before
-public void testPrepare() {
-    // paramMap初始化
-    paramMap = new HashMap&lt;String, Object&gt;();
-    paramMap.put("name", "世界");
-    
-    Map&lt;String, Object&gt; subParam = new HashMap<String, Object>();
-    subParam.put("name", "中国");
-    paramMap.put("china", subParam);
-    
-    Map&lt;String, Object&gt; subParam2 = new HashMap<String, Object>();
-    subParam2.put("name", "美国");
-    paramMap.put("usa", subParam2);
-    
-    Map&lt;String, Object&gt; subSubParam = new HashMap<String, Object>();
-    subSubParam.put("name", "北京");
-    subParam.put("beijing", subSubParam);
-    
-    Map&lt;String, Object&gt; subSubSubParam = new HashMap<String, Object>();
-    subSubSubParam.put("name", "西城");
-    subSubParam.put("xicheng", subSubSubParam);
-
-
-    // paramBean初始化
-    paramBean = new StringFormatTestBean();
-    paramBean.setRegion1("世界");
-    paramBean.setRegion2(null);
-    
-    StringFormatTestBean subBean = new StringFormatTestBean();
-    subBean.setRegion1("中国");
-    subBean.setRegion2("美国");
-    paramBean.setChild(subBean);
-    
-    StringFormatTestBean subSubBean = new StringFormatTestBean();
-    subSubBean.setRegion1("北京");
-    subSubBean.setRegion2("河北");
-    subBean.setChild(subSubBean);
-}
-</code></pre>
-
-### 7. 例子中用到的StringFormatTestBean类
+### 6. 例子中用到的StringFormatTestBean类
 
 <pre><code>
  public class StringFormatTestBean {
