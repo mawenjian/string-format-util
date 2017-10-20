@@ -148,7 +148,7 @@ public void testFormatString1() {
 }
 </code></pre>
 
-### 3. 传入参数`param`是类对象类型的简单用法
+### 3. 传入参数`param`是类对象的简单用法
 
 <pre><code>
 @Test
@@ -158,7 +158,7 @@ public void testFormatString2() {
      * formatForBean和paramBean的定义详见“数据准备部分”
      *
      * String formatForBean;
-     * Map&lt;String, Object&gt; paramBean;
+     * StringFormatTestBean paramBean;
      *
      */
      
@@ -177,7 +177,7 @@ public void testFormatString3() {
     * formatForBean和paramBean的定义详见“数据准备部分”
     *
     * String formatForBean;
-    * Map&lt;String, Object&gt; paramBean;
+    * StringFormatTestBean paramBean;
     *
     */
     
@@ -205,7 +205,7 @@ public void testFormatString4() {
      * formatForBean和paramBean的定义详见“数据准备部分”
      *
      * String formatForBean;
-     * Map&lt;String, Object&gt; paramBean;
+     * StringFormatTestBean paramBean;
      *
      */
      
