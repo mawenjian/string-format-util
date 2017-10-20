@@ -12,7 +12,7 @@
 
 尽管网络上很早就有类似的字符串/占位符替换工具，但是它们只能实现类似`{replacement}`形式的单层字符串/占位符替换，在使用过程中具有很大的局限性，不能满足我们的业务需要。这也是我造这个轮子的直接原因。
 
-### `StringFormatUtil`的优势
+### StringFormatUtil的优势
 
 * 便捷性更高。不同于网络上的这些工具类，`StringFormatUtil`基于Java的反射技术，实现了字符串/占位符的多层次替换，可以实现诸如`{china.beijing.haidian}`形式的替换，使用上更加方便。
 
@@ -27,7 +27,7 @@
 
 Although there are similar string / placeholder replacement tools on the Internet, they can only be implemented with a single-layer string/placeholder replacement like `{replacement}`, with great limitations in actual use , can not meet our business needs. It is also the direct cause of my development of this tool. 
 
-### Advantage of `StringFormatUtil`
+### Advantage of StringFormatUtil
 
 * More convenient. Different from the tools on the Internet, `StringFormatUtil` based on Java's reflection, achieves a string/placeholder multi-level replacement. So you can achieve such as `{china.beijing.haidian}` form of replacement, with more Convenience in actual use.
 
