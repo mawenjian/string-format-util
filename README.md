@@ -70,7 +70,7 @@ public void testFormatString1() {
 }
 </code></pre>
 
-###2. 参数是类对象的简单用法
+###3. 参数是类对象的简单用法
 
 <pre><code>
 @Test
@@ -81,7 +81,7 @@ public void testFormatString2() {
 }
 </code></pre>
 
-###3. `StringFormatUtil`自带的几种数据后处理方式
+###4. `StringFormatUtil`自带的几种数据后处理方式
 
 <pre><code>
 @Test
@@ -103,7 +103,7 @@ public void testFormatString3() {
 }
 </code></pre>
 
-###4. 自定义数据后处理接口，按你需要的格式输出
+###5. 自定义数据后处理接口，按你需要的格式输出
 
 <pre><code>
 @Test
@@ -143,7 +143,7 @@ public void testFormatString4() {
 }
 </code></pre>
 
-###5. 例子中用到的StringFormatTestBean类
+###6. 例子中用到的StringFormatTestBean类
 
 <pre><code>
  public class StringFormatTestBean {
