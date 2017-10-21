@@ -82,7 +82,7 @@ public class StringFormatUtil {
 
 <pre><code>
 // Map&lt;String, Object&gt;类型使用的格式化字符串
-private final static String formatForMap = "{name}, {china.name}, {usa.name}, {china.beijing.name}, {china.beijing.xicheng.name}.";;
+private final static String formatForMap = "{name}, {china.name}, {usa.name}, {china.beijing.name}, {china.beijing.xicheng.name}, {world.region1}, {world.child.region1}.";
 // 类对象使用的格式化字符串
 private final static String formatForBean = "{region1}, {region2}, {child.region1}, {child.region2}, {child.child.region1}, {child.child.region2}, {date}, {child.date}.";
 
@@ -91,6 +91,22 @@ private StringFormatTestBean paramBean = null;
 
 @Before
 public void testPrepare() {
+    // paramBean初始化
+    paramBean = new StringFormatTestBean();
+    paramBean.setRegion1("世界");
+    paramBean.setRegion2(null);
+    
+    StringFormatTestBean subBean = new StringFormatTestBean();
+    subBean.setRegion1("中国");
+    subBean.setRegion2("美国");
+    paramBean.setChild(subBean);
+    
+    StringFormatTestBean subSubBean = new StringFormatTestBean();
+    subSubBean.setRegion1("北京");
+    subSubBean.setRegion2("河北");
+    subBean.setChild(subSubBean);
+    
+    
     // paramMap初始化
     paramMap = new HashMap&lt;String, Object&gt;();
     paramMap.put("name", "世界");
@@ -110,22 +126,10 @@ public void testPrepare() {
     Map&lt;String, Object&gt; subSubSubParam = new HashMap&lt;String, Object&gt;();
     subSubSubParam.put("name", "西城");
     subSubParam.put("xicheng", subSubSubParam);
-
-
-    // paramBean初始化
-    paramBean = new StringFormatTestBean();
-    paramBean.setRegion1("世界");
-    paramBean.setRegion2(null);
     
-    StringFormatTestBean subBean = new StringFormatTestBean();
-    subBean.setRegion1("中国");
-    subBean.setRegion2("美国");
-    paramBean.setChild(subBean);
     
-    StringFormatTestBean subSubBean = new StringFormatTestBean();
-    subSubBean.setRegion1("北京");
-    subSubBean.setRegion2("河北");
-    subBean.setChild(subSubBean);
+    // <b>注意：Map&lt;String, Object&gt;与Bean可以混用</b>
+    paramMap.put("world", subBean);
 }
 </code></pre>
 
