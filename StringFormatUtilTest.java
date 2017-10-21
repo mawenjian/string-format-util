@@ -58,7 +58,7 @@ public class StringFormatUtilTest {
 	}
 
 	/**
-	 * 针对Map类型的简单用法
+	 * 使用Map类型作为传入参数
 	 */
 	@Test
 	public void testFormatString1() {
@@ -68,7 +68,7 @@ public class StringFormatUtilTest {
 	}
 
 	/**
-	 * 针对对象类型的简单用法
+	 * 使用普通Bean作为传入参数
 	 */
 	@Test
 	public void testFormatString2() {
@@ -78,7 +78,7 @@ public class StringFormatUtilTest {
 	}
 
 	/**
-	 * 采用工具类自带的几种数据后处理方式
+	 * 几种可选的NULL值处理方式
 	 */
 	@Test
 	public void testFormatString3() {
@@ -99,7 +99,7 @@ public class StringFormatUtilTest {
 	}
 
 	/**
-	 * 高级用法 => 自己实现数据后处理接口
+	 * 高级用法 => 自定义数据处理接口，按你需要的格式输出
 	 */
 	@Test
 	public void testFormatString4() {
