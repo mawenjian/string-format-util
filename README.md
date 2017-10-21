@@ -1,9 +1,9 @@
 # StringFormatUtil
 
 ----------------------------------------
-`StringFormatUtil`是一个功能强大的Java字符串/占位符替换工具.
+`StringFormatUtil`是一个基于Java开发的功能强大的多层级字符串/占位符替换工具.
 
-`StringFormatUtil` is a powerful Java-based string / placeholder replacement tool.
+`StringFormatUtil` is a powerful Java-based multi-level string / placeholder replacement tool.
 
 ## 简介
 
@@ -14,7 +14,7 @@
 
 ### StringFormatUtil的优势
 
-* 便捷性更高。不同于网络上的这些工具类，`StringFormatUtil`基于Java的反射技术，实现了字符串/占位符的多层次替换，可以实现诸如`{china.beijing.haidian}`形式的替换，使用上更加方便。
+* 便捷性更高。不同于网络上的这些工具类，`StringFormatUtil`基于Java的反射技术，实现了字符串/占位符的多层级替换，可以实现诸如`{china.beijing.haidian}`形式的替换，使用上更加方便。
 
 * 可定制性更强。如果我们提供的几种默认方式不能满足开发需要，开发者可以通过实现类中的`PostHandleIface`接口，实现对输出数据格式的个性化定制（例如：日期的格式化显示，小数精确位数的控制，等等）。
 
@@ -25,15 +25,15 @@
 ----------------------------------------
 ### Shortcomings of other similar tools
 
-Although there are similar string / placeholder replacement tools on the Internet, they can only be implemented with a single-layer string/placeholder replacement like `{replacement}`, with great limitations in actual use , can not meet our business needs. It is also the direct cause of my development of this tool. 
+Although there are similar string / placeholder replacement tools on the Internet, they can only be implemented with a single-level string/placeholder replacement like `{replacement}`, with great limitations in actual use , can not meet our business needs. It is also the direct cause of my development of this tool. 
 
 ### Advantage of StringFormatUtil
 
 * More convenient. Different from the tools on the Internet, `StringFormatUtil` based on Java's reflection, achieves a string/placeholder multi-level replacement. So you can achieve such as `{china.beijing.haidian}` form of replacement, with more Convenience in actual use.
 
-* More customizable. If the several methods we provide can not meet your development needs, your can achieve the customization of output data formatting(eg: the date of the format display, decimal precision bit control, etc.) by an implementation of `PostHandleIface` interface.
+* More customizable. If the several methods we provide can not meet your development needs, your can achieve your customization of output data formatting(eg: the date of formatted display, decimal precision bit control, etc.) by an implementation of `PostHandleIface` interface.
 
-* Optimized algorithm.In the implementation of the algorithm, we also carried out a lot of optimization, which can ensure better execution efficiency (Of course, compared with single-layer replacement, efficiency is still inevitable. So if your program is extrame sensitive to time with simple demand , You can also consider a single-layer replacement program. However, the general do not need to consider so much, since our program is completely okey in efficiency, despite the rest assured).
+* Optimized algorithm.In the implementation of the algorithm, we also carried out a lot of optimization, which can ensure better execution efficiency (Of course, compared with single-level replacement, the efficiency is still inevitable. So if your program is extrame sensitive to time and has simple needs only , You can also consider a single-level replacement program. However, the general do not need to consider so much, since our program is completely okey in efficiency, despite the rest assured).
 
 ----------------------------------------
 
