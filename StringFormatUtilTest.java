@@ -15,7 +15,7 @@ import net.mawenjian.masf.utils.text.StringFormatUtil.PostHandleType;
 public class StringFormatUtilTest {
 
 	// Map类型使用的格式化字符串
-	private final static String formatForMap = "{name}, {china.name}, {usa.name}, {china.beijing.name}, {china.beijing.xicheng.name}.";;
+	private final static String formatForMap = "{name}, {china.name}, {usa.name}, {china.beijing.name}, {china.beijing.xicheng.name}, {world.region1}, {world.child.region1}.";
 	// 类对象使用的格式化字符串
 	private final static String formatForBean = "{region1}, {region2}, {child.region1}, {child.region2}, {child.child.region1}, {child.child.region2}, {date}, {child.date}.";
 
@@ -24,6 +24,19 @@ public class StringFormatUtilTest {
 
 	@Before
 	public void testPrepare() {
+		// paramBean初始化
+		paramBean = new StringFormatTestBean();
+		paramBean.setRegion1("世界");
+		paramBean.setRegion2(null);
+		StringFormatTestBean subBean = new StringFormatTestBean();
+		subBean.setRegion1("中国");
+		subBean.setRegion2("美国");
+		paramBean.setChild(subBean);
+		StringFormatTestBean subSubBean = new StringFormatTestBean();
+		subSubBean.setRegion1("北京");
+		subSubBean.setRegion2("河北");
+		subBean.setChild(subSubBean);
+
 		// paramMap初始化
 		paramMap = new HashMap<String, Object>();
 		paramMap.put("name", "世界");
@@ -39,19 +52,9 @@ public class StringFormatUtilTest {
 		Map<String, Object> subSubSubParam = new HashMap<String, Object>();
 		subSubSubParam.put("name", "西城");
 		subSubParam.put("xicheng", subSubSubParam);
-
-		// paramBean初始化
-		paramBean = new StringFormatTestBean();
-		paramBean.setRegion1("世界");
-		paramBean.setRegion2(null);
-		StringFormatTestBean subBean = new StringFormatTestBean();
-		subBean.setRegion1("中国");
-		subBean.setRegion2("美国");
-		paramBean.setChild(subBean);
-		StringFormatTestBean subSubBean = new StringFormatTestBean();
-		subSubBean.setRegion1("北京");
-		subSubBean.setRegion2("河北");
-		subBean.setChild(subSubBean);
+		
+		//注意：Map与Bean可以混用
+		paramMap.put("world", subBean);
 	}
 
 	/**
