@@ -133,7 +133,7 @@ public void testPrepare() {
 }
 </code></pre>
 
-### 2. 传入参数`param`是`Map<String, Object>`
+### 2. 使用`Map<String, Object>`作为传入参数
 
 <pre><code>
 @Test
@@ -152,7 +152,7 @@ public void testFormatString1() {
 }
 </code></pre>
 
-### 3. 传入参数`param`是普通Bean
+### 3. 使用`Bean`作为传入参数
 
 <pre><code>
 @Test
@@ -199,7 +199,7 @@ public void testFormatString3() {
 }
 </code></pre>
 
-### 5. 自定义数据处理接口，按你需要的格式输出
+### 5. 高级用法：自定义数据处理接口，按你需要的格式输出
 
 <pre><code>
 @Test
