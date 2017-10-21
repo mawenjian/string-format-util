@@ -128,12 +128,12 @@ public void testPrepare() {
     subSubParam.put("xicheng", subSubSubParam);
     
     
-    // <b>注意：Map&lt;String, Object&gt;与Bean可以混用</b>
+    // <font color="red"><b>注意：Map&lt;String, Object&gt;与Bean可以混用</b></font>
     paramMap.put("world", subBean);
 }
 </code></pre>
 
-### 2. 传入参数`param`是`Map<String, Object>`类型的简单用法
+### 2. 传入参数`param`是`Map<String, Object>`
 
 <pre><code>
 @Test
@@ -152,7 +152,7 @@ public void testFormatString1() {
 }
 </code></pre>
 
-### 3. 传入参数`param`是类对象的简单用法
+### 3. 传入参数`param`是普通Bean
 
 <pre><code>
 @Test
@@ -171,7 +171,7 @@ public void testFormatString2() {
 }
 </code></pre>
 
-### 4. `StringFormatUtil`自带的几种数据处理方式
+### 4. 几种可选的NULL值处理方式
 
 <pre><code>
 @Test
